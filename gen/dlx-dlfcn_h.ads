@@ -4,9 +4,9 @@ pragma Style_Checks (Off);
 with Interfaces.C; use Interfaces.C;
 with Interfaces.C.Strings;
 with System;
-with stddef_h;
+with dlx.stddef_h;
 
-package dlfcn_h is
+package dlx.dlfcn_h is
 
    --  unsupported macro: RTLD_NEXT ((void *) -1l)
    --  unsupported macro: RTLD_DEFAULT ((void *) 0)
@@ -176,7 +176,7 @@ package dlfcn_h is
   -- Size in bytes of the whole buffer.   
    type Dl_serinfo_dls_serpath_array is array (0 .. 0) of aliased Dl_serpath;
    type Dl_serinfo is record
-      dls_size : aliased stddef_h.size_t;  -- /usr/include/dlfcn.h:181
+      dls_size : aliased dlx.stddef_h.size_t;  -- /usr/include/dlfcn.h:181
       dls_cnt : aliased unsigned;  -- /usr/include/dlfcn.h:182
       dls_serpath : aliased Dl_serinfo_dls_serpath_array;  -- /usr/include/dlfcn.h:183
    end record;
@@ -186,4 +186,4 @@ package dlfcn_h is
 
   -- Number of elements in `dls_serpath'.   
   -- Actually longer, dls_cnt elements.   
-end dlfcn_h;
+end dlx.dlfcn_h;

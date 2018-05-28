@@ -4,12 +4,14 @@ with Interfaces.C.Strings;
 
 with System;
 
-with Dlfcn_H;
-with X86_64_Linux_Gnu_Bits_Dlfcn_H;
+with DLx.Dlfcn_H;
+with DLx.X86_64_Linux_Gnu_Bits_Dlfcn_H;
 
 package DL is
 
    type Handle is private;
+
+   function To_Address (H : Handle) return System.Address;
 
    type Modes is (Lazy, Now);
 
@@ -37,13 +39,16 @@ private
 
    pragma Linker_Options ("-ldl");
 
-   package Bind renames Dlfcn_H;
-   package Defs renames X86_64_Linux_Gnu_Bits_Dlfcn_H;
+   package Bind renames DLx.Dlfcn_H;
+   package Defs renames DLx.X86_64_Linux_Gnu_Bits_Dlfcn_H;
 
    package C  renames Interfaces.C;
    package CS renames Interfaces.C.Strings;
 
    type Handle is new System.Address;
+
+   function To_Address (H : Handle) return System.Address is
+      (System.Address (H));
 
    RTLD_BINDING_MASK : constant Or_Flags := Defs.RTLD_BINDING_MASK;
    RTLD_NOLOAD       : constant Or_Flags := Defs.RTLD_NOLOAD;

@@ -3,7 +3,7 @@ pragma Style_Checks (Off);
 
 with Interfaces.C; use Interfaces.C;
 
-package x86_64_linux_gnu_bits_dlfcn_h is
+package dlx.x86_64_linux_gnu_bits_dlfcn_h is
 
    RTLD_LAZY : constant := 16#00001#;  --  /usr/include/x86_64-linux-gnu/bits/dlfcn.h:24
    RTLD_NOW : constant := 16#00002#;  --  /usr/include/x86_64-linux-gnu/bits/dlfcn.h:25
@@ -58,4 +58,4 @@ package x86_64_linux_gnu_bits_dlfcn_h is
   -- This function calls the profiling functions.   
    --  skipped func _dl_mcount_wrapper_check
 
-end x86_64_linux_gnu_bits_dlfcn_h;
+end dlx.x86_64_linux_gnu_bits_dlfcn_h;

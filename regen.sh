@@ -2,4 +2,4 @@
 
 cd gen &&
 rm -f * &&
-g++ -fdump-ada-spec -C /usr/include/dlfcn.h
+g++ -fada-spec-parent=dlx -fdump-ada-spec -C /usr/include/dlfcn.h

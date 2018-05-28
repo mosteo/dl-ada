@@ -3,9 +3,9 @@ pragma Style_Checks (Off);
 
 with Interfaces.C; use Interfaces.C;
 
-package stddef_h is
+package dlx.stddef_h is
 
-  -- Copyright (C) 1989-2017 Free Software Foundation, Inc.
+  -- Copyright (C) 1989-2016 Free Software Foundation, Inc.
   --This file is part of GCC.
   --GCC is free software; you can redistribute it and/or modify
   --it under the terms of the GNU General Public License as published by
@@ -74,7 +74,7 @@ package stddef_h is
 
   -- __size_t is a typedef on FreeBSD 5, must not trash it.  
   -- __size_t is also a typedef on VMS.   
-   subtype size_t is unsigned_long;  -- /usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h:216
+   subtype size_t is unsigned_long;  -- /home/jano/opt/gnat-gpl-2017/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include/stddef.h:216
 
   -- Wide character type.
   --   Locale-writers should change this as necessary to
@@ -119,10 +119,4 @@ package stddef_h is
   --   as great as that of any standard type not using alignment
   --   specifiers.   
 
-  -- _Float128 is defined as a basic type, so max_align_t must be
-  --     sufficiently aligned for it.  This code must work in C++, so we
-  --     use __float128 here; that is only available on some
-  --     architectures, but only on i386 is extra alignment needed for
-  --     __float128.   
-
-end stddef_h;
+end dlx.stddef_h;
