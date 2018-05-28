@@ -1,6 +1,6 @@
 project DL is
 
-   for Library_Name use "Dl_Ada";
+   for Library_Name use "dl_ada";
    for Library_Version use "0.0.0";
 
    for Source_Dirs use ("gen", "src");
@@ -12,7 +12,12 @@ project DL is
    end Builder;
 
    package Compiler is
-      for Switches ("ada") use ("-gnatVa", "-gnatwa", "-g", "-O2", "-gnata", "-gnat12", "-gnato", "-fstack-check");
+      for Switches ("ada") use ("-Wall", "-Wextra", "-pedantic",
+                                "-gnatVa", "-gnatwa", "-g",
+                                "-O2", "-gnata", "-gnat12", "-gnato",
+                                "-fstack-check");
+
+      for Switches ("*_h.ads") use Compiler'Switches ("ada") & ("-gnatwU");
    end Compiler;
 
    package Binder is
