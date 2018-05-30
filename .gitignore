@@ -2,4 +2,6 @@ lib
 obj 
 
 *.ali
+*.db
 *.o
+*.xml
