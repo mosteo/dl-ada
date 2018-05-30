@@ -1,0 +1,7 @@
+aggregate project DL_Build is
+
+   for Project_Files use ("dl.gpr");
+
+   for Project_Path use ("cstrings");
+
+end DL_Build;

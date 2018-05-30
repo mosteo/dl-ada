@@ -1,0 +1,3 @@
+[submodule "cstrings"]
+	path = cstrings
+	url = https://github.com/mosteo/cstrings.git
