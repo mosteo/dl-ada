@@ -1,15 +1,12 @@
 with Ada.Unchecked_Conversion;
 
-with C_Strings;
-
-with Interfaces.C.Strings;
+with DLx.X86_64_Linux_Gnu_Bits_Dlfcn_H;
 
 with System;
 
-with DLx.Dlfcn_H;
-with DLx.X86_64_Linux_Gnu_Bits_Dlfcn_H;
-
 package DL is
+
+   Symbol_Error : exception;
 
    type Handle is private;
 
@@ -28,9 +25,11 @@ package DL is
    function Open (File  : String   := "";
                   Mode  : Modes    := Now;
                   Flags : Or_Flags := 0) return Handle;
+   --  If File /= "" and Open'Result would be null, Symbol_Error is raised
 
    function Sym (H    : Handle;
                  Name : String) return System.Address;
+   --  Raises Symbol_Error when symbol not found (so it never returns null)
 
    function Error return String;
    --  Returns last error or empty string
@@ -39,11 +38,7 @@ private
 
    pragma Linker_Options ("-ldl");
 
-   package Bind renames DLx.Dlfcn_H;
    package Defs renames DLx.X86_64_Linux_Gnu_Bits_Dlfcn_H;
-
-   package C  renames Interfaces.C;
-   package CS renames Interfaces.C.Strings;
 
    type Handle is new System.Address;
 
@@ -56,28 +51,5 @@ private
    RTLD_GLOBAL       : constant Or_Flags := Defs.RTLD_GLOBAL;
    RTLD_LOCAL        : constant Or_Flags := Defs.RTLD_LOCAL;
    RTLD_NODELETE     : constant Or_Flags := Defs.RTLD_NODELETE;
-
-
-
-   ----------
-   -- Open --
-   ----------
-
-   function Open (File  : String   := "";
-                  Mode  : Modes    := Now;
-                  Flags : Or_Flags := 0) return Handle is
-     (Handle
-        (Bind.Dlopen
-             ((if File /= "" then C_Strings.To_C (File).To_Ptr else CS.Null_Ptr),
-              C.Int((if Mode = Lazy then Defs.RTLD_LAZY else Defs.RTLD_NOW) + Flags))));
-
-   ---------
-   -- Sym --
-   ---------
-
-   function Sym (H    : Handle;
-                 Name : String) return System.Address is
-     (Bind.Dlsym (System.Address (H),
-                  C_Strings.To_C (Name).To_Ptr));
 
 end DL;
