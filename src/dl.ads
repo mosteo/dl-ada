@@ -8,7 +8,7 @@ package DL is
 
    Symbol_Error : exception;
 
-   type Handle is private;
+   type Handle (<>) is private;
 
    type Modes is (Lazy, Now);
 
@@ -40,10 +40,13 @@ private
 
    package Defs renames DLx.X86_64_Linux_Gnu_Bits_Dlfcn_H;
 
-   type Handle is new System.Address;
+   type Handle (Length : Natural) is record
+      Addr : System.Address;
+      File : String (1 .. Length);
+   end record;
 
    function To_Address (H : Handle) return System.Address is
-      (System.Address (H));
+      (H.Addr);
 
    RTLD_BINDING_MASK : constant Or_Flags := Defs.RTLD_BINDING_MASK;
    RTLD_NOLOAD       : constant Or_Flags := Defs.RTLD_NOLOAD;
