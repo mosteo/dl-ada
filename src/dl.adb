@@ -1,3 +1,4 @@
+with Ada.Text_IO; use Ada.Text_IO;
 with C_Strings;
 
 with Dlx.Dlfcn_H;
@@ -33,6 +34,7 @@ package body DL is
       do
          if File /= "" and then Result.Addr in System.Null_Address
          then
+            Put_Line ("[DL.Open] DL reports error: " & Error);
             raise Symbol_Error with "[DL.Open] Failed to open: " & File;
          end if;
       end return;
